@@ -50,7 +50,7 @@ auto split(const std::string& str, char d, size_t count, std::tuple<bool, T> (*f
 
 std::tuple<bool, IpAddress> makeAddress(const std::string& str);
 
-IpPart operator""_octet(unsigned long long a);
+IpPart operator"" _octet(unsigned long long a);
 
 std::string address2String(const IpAddress& address, const std::string& delim);
 void printPool(const IpPool& pool, bool(*filter)(const IpAddress& addr) = nullptr);
