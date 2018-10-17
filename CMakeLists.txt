@@ -41,3 +41,4 @@ include (CPack)
 enable_testing()
 
 add_test(test_sort ${PROJECT_NAME}_test)
+add_test(test_filter ${PROJECT_NAME}_test)
