@@ -37,7 +37,7 @@ std::tuple<bool, IpAddress> makeAddress(const std::string &str)
     });
 }
 
-IpPart operator""_octet(unsigned long long a)
+IpPart operator"" _octet(unsigned long long a)
 {
     // can't use static_assert((
     assert(a < 256);
