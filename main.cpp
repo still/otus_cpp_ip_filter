@@ -22,12 +22,12 @@ int main()
             pool.push_back(address);
         }
 
-        // sort Asc
-        sortAsc(pool);
-        printPool(pool);
-
         // sort Desc
         sortDesc(pool);
+        printPool(pool);
+
+        // sort Asc
+        sortAsc(pool);
         printPool(pool);
 
         // filter 1

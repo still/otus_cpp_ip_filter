@@ -23,6 +23,10 @@ set_target_properties(${PROJECT_NAME}_test PROPERTIES
   INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
+# for local build
+#target_link_libraries(${PROJECT_NAME}_lib stdc++)
+#target_link_libraries(${PROJECT_NAME} stdc++)
+
 target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT} ${PROJECT_NAME}_lib)
 target_link_libraries(${PROJECT_NAME}_test ${Boost_LIBRARIES} ${PROJECT_NAME}_lib)
 
