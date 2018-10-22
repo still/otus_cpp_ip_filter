@@ -5,17 +5,15 @@ int version()
     return PROJECT_VERSION_PATCH;
 }
 
-auto generateSortLambda(bool (*compare)(const IpPart &, const IpPart &))
+bool operator< (const IpAddress& a, const IpAddress& b)
 {
-    return [compare](const IpAddress& a, const IpAddress& b) {
-        for(size_t i = 0; i < a.size(); i++)
-        {
-            if(a.at(i) == b.at(i))
-                continue;
-            return compare(a.at(i), b.at(i));
-        }
-        return false;
-    };
+    for(size_t i = 0; i < a.size(); i++)
+    {
+        if(a.at(i) == b.at(i))
+            continue;
+        return a.at(i) < b.at(i);
+    }
+    return false;
 }
 
 auto filterPool(const IpPool &pool, bool (*filter)(const IpAddress &))
@@ -62,18 +60,9 @@ void printPool(const IpPool &pool, bool (*filter)(const IpAddress &))
             std::cout << address2String(address, ".") << std::endl;
 }
 
-void sortAsc(IpPool &pool)
-{
-    std::sort(pool.begin(), pool.end(), generateSortLambda([](const IpPart& a, const IpPart& b) {
-        return a < b;
-    }));
-}
-
 void sortDesc(IpPool &pool)
 {
-    std::sort(pool.begin(), pool.end(), generateSortLambda([](const IpPart& a, const IpPart& b) {
-        return a > b;
-    }));
+    std::sort(pool.rbegin(), pool.rend());
 }
 
 IpPool filter1(const IpPool &pool)

@@ -26,10 +26,6 @@ int main()
         sortDesc(pool);
         printPool(pool);
 
-        // sort Asc
-//        sortAsc(pool);
-//        printPool(pool);
-
         // filter 1
         printPool(filter1(pool));
 

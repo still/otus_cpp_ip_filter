@@ -21,11 +21,6 @@ BOOST_AUTO_TEST_CASE(test_sort)
     pool.push_back(genAddress("3.3.3.3"));
     pool.push_back(genAddress("1.1.1.1"));
 
-    sortAsc(pool);
-    BOOST_CHECK(pool.at(0).at(0) == 1_octet);
-    BOOST_CHECK(pool.at(1).at(0) == 2_octet);
-    BOOST_CHECK(pool.at(2).at(0) == 3_octet);
-
     sortDesc(pool);
     BOOST_CHECK(pool.at(0).at(0) == 3_octet);
     BOOST_CHECK(pool.at(1).at(0) == 2_octet);
