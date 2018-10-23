@@ -5,17 +5,6 @@ int version()
     return PROJECT_VERSION_PATCH;
 }
 
-bool operator< (const IpAddress& a, const IpAddress& b)
-{
-    for(size_t i = 0; i < a.size(); i++)
-    {
-        if(a.at(i) == b.at(i))
-            continue;
-        return a.at(i) < b.at(i);
-    }
-    return false;
-}
-
 auto filterPool(const IpPool &pool, bool (*filter)(const IpAddress &))
 {
     IpPool res;
