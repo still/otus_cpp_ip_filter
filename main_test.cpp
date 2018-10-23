@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(test_sort)
     pool.push_back(genAddress("3.3.3.3"));
     pool.push_back(genAddress("1.1.1.1"));
 
-    sortDesc(pool);
+    std::sort(pool.rbegin(), pool.rend());
     BOOST_CHECK(pool.at(0).at(0) == 3_octet);
     BOOST_CHECK(pool.at(1).at(0) == 2_octet);
     BOOST_CHECK(pool.at(2).at(0) == 1_octet);
@@ -35,12 +35,12 @@ BOOST_AUTO_TEST_CASE(test_filter)
     pool.push_back(genAddress("1.1.1.1"));
 
 
-    IpPool resPool = filter1(pool);
+    IpPool resPool = filterBegin(pool, 1_octet);
     BOOST_CHECK(resPool.size() == 1);
     for(IpAddress address: resPool)
         BOOST_CHECK(address.at(0) == 1_octet);
 
-    resPool = filter2(pool);
+    resPool = filterBegin(pool, 46_octet, 70_octet);
     BOOST_CHECK(resPool.size() == 1);
     for(IpAddress address: resPool)
     {
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(test_filter)
         BOOST_CHECK(address.at(1) == 70_octet);
     }
 
-    resPool = filter3(pool);
+    resPool = filterAny(pool, 46_octet);
     BOOST_CHECK(resPool.size() == 2);
     for(IpAddress address: resPool)
     {
@@ -57,6 +57,9 @@ BOOST_AUTO_TEST_CASE(test_filter)
                     address.at(2) == 46_octet ||
                     address.at(3) == 46_octet);
     }
+
+    resPool = filterBegin(pool);
+    BOOST_CHECK(resPool.size() == 3);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

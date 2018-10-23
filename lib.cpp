@@ -49,31 +49,12 @@ void printPool(const IpPool &pool, bool (*filter)(const IpAddress &))
             std::cout << address2String(address, ".") << std::endl;
 }
 
-void sortDesc(IpPool &pool)
+IpPool filterAny(const IpPool& pool, const IpPart &octet)
 {
-    std::sort(pool.rbegin(), pool.rend());
-}
-
-IpPool filter1(const IpPool &pool)
-{
-    return filterPool(pool, [](const IpAddress& v) {
-        return
-                v.at(0) == 1_octet;
+    IpPool result;
+    std::copy_if(pool.begin(), pool.end(), std::back_inserter(result),
+                  [&octet](IpAddress address) {
+        return std::find(address.begin(), address.end(), octet) != address.end();
     });
-}
-
-IpPool filter2(const IpPool &pool)
-{
-    return filterPool(pool, [](const IpAddress& v) {
-        return
-                v.at(0) == 46_octet &&
-                v.at(1) == 70_octet;
-    });
-}
-
-IpPool filter3(const IpPool &pool)
-{
-    return filterPool(pool, [](const IpAddress& v) {
-        return std::find(v.begin(), v.end(), 46_octet) != v.end();
-    });
+    return result;
 }

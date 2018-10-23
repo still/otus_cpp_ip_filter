@@ -55,8 +55,27 @@ IpPart operator"" _octet(unsigned long long a);
 std::string address2String(const IpAddress& address, const std::string& delim);
 void printPool(const IpPool& pool, bool(*filter)(const IpAddress& addr) = nullptr);
 
-void sortAsc(IpPool& pool);
-void sortDesc(IpPool& pool);
-IpPool filter1(const IpPool& pool);
-IpPool filter2(const IpPool& pool);
-IpPool filter3(const IpPool& pool);
+IpPool filterAny(const IpPool &pool, const IpPart &octet);
+
+template<typename... Args>
+IpPool filterBegin(const IpPool& pool, Args ... args)
+{
+    IpPool result;
+    size_t size = sizeof...(args);
+    if(size > 4)
+        return result;
+
+    IpAddress filterAddress = {args ...};
+
+    std::copy_if(pool.begin(), pool.end(), std::back_inserter(result),
+                  [&](IpAddress address) {
+        for(auto i = 0; i < filterAddress.size(); i++)
+        {
+            if(filterAddress.at(i) != address.at(i))
+                return false;
+        }
+        return true;
+    });
+
+    return result;
+}

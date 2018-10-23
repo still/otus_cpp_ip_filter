@@ -23,17 +23,17 @@ int main()
         }
 
         // sort Desc
-        sortDesc(pool);
+        std::sort(pool.rbegin(), pool.rend());
         printPool(pool);
 
         // filter 1
-        printPool(filter1(pool));
+        printPool(filterBegin(pool, 1_octet));
 
         // filter 2
-        printPool(filter2(pool));
+        printPool(filterBegin(pool, 46_octet, 70_octet));
 
         // filter 3
-        printPool(filter3(pool));
+        printPool(filterAny(pool, 46_octet));
     }
     catch(const std::exception &e)
     {
