@@ -23,7 +23,7 @@ int main()
         }
 
         // sort Desc
-        std::sort(pool.rbegin(), pool.rend());
+        std::sort(pool.begin(), pool.end(), std::greater<IpAddress>());
         printPool(pool);
 
         // filter 1

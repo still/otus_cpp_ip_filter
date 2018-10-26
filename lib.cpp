@@ -53,8 +53,8 @@ IpPool filterAny(const IpPool& pool, const IpPart &octet)
 {
     IpPool result;
     std::copy_if(pool.begin(), pool.end(), std::back_inserter(result),
-                  [&octet](IpAddress address) {
-        return std::find(address.begin(), address.end(), octet) != address.end();
+                [&octet](IpAddress address) {
+        return std::any_of(address.begin(), address.end(), [octet](IpPart part) { return part == octet; });
     });
     return result;
 }

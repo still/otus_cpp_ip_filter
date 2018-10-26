@@ -69,12 +69,7 @@ IpPool filterBegin(const IpPool& pool, Args ... args)
 
     std::copy_if(pool.begin(), pool.end(), std::back_inserter(result),
                   [&](IpAddress address) {
-        for(auto i = 0; i < filterAddress.size(); i++)
-        {
-            if(filterAddress.at(i) != address.at(i))
-                return false;
-        }
-        return true;
+        return std::equal(address.begin(), address.begin() + size, filterAddress.begin());
     });
 
     return result;
